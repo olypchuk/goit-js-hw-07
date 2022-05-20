@@ -14,27 +14,27 @@ document.addEventListener("DOMContentLoaded",createGallery)
 gallery.addEventListener("click", loadFullImage);
 
 function loadFullImage(e) {
+  e.preventDefault()
+  if (e.target.nodeName !== "IMG") {
+    return
+  }
   const picture = galleryItems.find(el => el.description === e.target.getAttribute('alt'));
   picture.original=e.target.dataset.source;
-  console.log(picture.original);
-  e.preventDefault()
-  
   const instance = basicLightbox.create(`<div class="modal">
-    <img src="${picture.original}"  width="800" height="600" alt="${picture.description}"></div>
-`) 
-
+    <img src="${picture.original}"  width="800" height="600" alt="${picture.description}"></div>`) 
+  
   instance.show()
   const visible = instance.visible()
   if (visible ) {
     gallery.addEventListener("keydown", function closeEvent(e) {
  
-    if (e.code === "Escape") {
-  console.log(e.code);
-    instance.close()
+      if (e.code === "Escape") {
+      console.log(e.code);
+      instance.close()
       gallery.removeEventListener("keydown", closeEvent);
-     
+      
   }  
-});
+});  
   } 
 }
 
