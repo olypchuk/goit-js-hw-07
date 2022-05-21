@@ -12,7 +12,7 @@ function createGallery() {
     gallery.insertAdjacentHTML("afterbegin", createImg);
     const lightbox = new SimpleLightbox('.gallery a', { captionDelay: 250, captionsData: "alt" })
 
-    return lightbox
+   
 }
 
 
