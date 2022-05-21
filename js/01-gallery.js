@@ -15,27 +15,21 @@ gallery.addEventListener("click", loadFullImage);
 
 function loadFullImage(e) {
   e.preventDefault()
-  if (e.target.nodeName !== "IMG") { 
+  if (e.target.nodeName !== "IMG") {
     return
   }
   const { dataset } = e.target;
-  
   const instance = basicLightbox.create(`<div class="modal">
-    <img src="${dataset.source}"  width="800" height="600" alt="${e.target.getAttribute('alt')}"></div>`) 
-  
+    <img src="${dataset.source}"  width="800" height="600" alt="${e.target.getAttribute('alt')}"></div>`, { closable: true ,onShow:()=>{addEventListener("keydown",closeEvent)},onClose:()=>{closeEvent(e)}});
   instance.show()
-  const visible = instance.visible()
-  if (visible ) {
-    addEventListener("keydown", function closeEvent(e) {
- 
-      if (e.code === "Escape") {
+
+  function closeEvent(e) {
+    if (e.code === "Escape") {
       console.log(e.code);
-      instance.close()
-     removeEventListener("keydown", closeEvent);
+      instance.close();
       
-  }  
-});  
-  } 
+    }removeEventListener("keydown", closeEvent)        
+} 
 }
 
 
